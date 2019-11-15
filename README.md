@@ -1,2 +1,0 @@
-# physics
-school physics name
