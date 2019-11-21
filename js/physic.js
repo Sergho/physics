@@ -5,7 +5,7 @@ class Physic{
 		this.objects 	= objects;
 		this.simulate = false;
 		this.fps 			= 60;
-		// Checking button for click and then simulate 
+		// Checking button for click and then simulate
 		this.Simulate();
 	}
 	Simulate(){
@@ -16,12 +16,14 @@ class Physic{
 			// changing the state of simulate flag
 			this.simulate = !this.simulate;
 			if(this.simulate){
-				// start intarval if flag works
+				simulate.innerHTML = 'Stop';
+				// start interval if flag works
 				this.timer = setInterval(() => {
 					// Making iteration with frequency of 60fps
 					this.Iteration();
 				}, 1000/this.fps);
 			} else {
+				simulate.innerHTML = 'Start';
 				// clearing interval if flag was disabled
 				clearInterval(this.timer);
 				this.Return()
