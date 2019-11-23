@@ -18,20 +18,25 @@ header{
 	z-index: 1;
 	display: flex
 }
-#toGoBtn{
-	position: fixed;
-	margin-left: 40%;
-	margin-top: 8px;
-	width: 80px;
-	height: 58px;
+.simulate{
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	box-sizing: border-box;
+	padding: 10px;
+}
+.simulate button{
+	padding: 0 20px;
+	color: white;
 	background-color: #cb34fe;
 	border-radius: 10%;
 	border: none;
 	font-size: 1.275em;
 	transition: 0.2s;
+	cursor: pointer;
 }
 
-#toGoBtn:hover {
+.simulate button:hover{
 	background: #421470;
 	color: #B6822D;
 	box-shadow: 0 0 100px #421470;
