@@ -8,8 +8,7 @@ function Main(){
 	// Drawing all
 	canv.DrawAll(objects);
 
-	objects[1].speedX = 1;
-	objects[1].speedY = 1;
+	objects[1].NewAcceleration(1, 2);
 
 	// User interface
 	const ui = new UI(canv, objects);

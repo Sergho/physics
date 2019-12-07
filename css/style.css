@@ -16,14 +16,15 @@ header{
 	top: 0;
 	left: 0;
 	z-index: 1;
-	display: flex
+	display: flex;
+	justify-content: center;
 }
 .simulate{
-	width: 100%;
 	display: flex;
 	justify-content: center;
 	box-sizing: border-box;
 	padding: 10px;
+	margin: 0 10px;
 }
 .simulate button{
 	padding: 0 20px;
@@ -40,4 +41,27 @@ header{
 	background: #421470;
 	color: #B6822D;
 	box-shadow: 0 0 100px #421470;
+}
+
+.change-gravy{
+	display: flex;
+	justify-content: center;
+	position: relative;
+	margin: 0 10px;
+}
+.change-gravy input{
+	display: none;
+	position: absolute;
+	top: 50%;
+	transform: translate(0, -50%);
+}
+.change-gravy .visual{
+	display: block;
+	width: 50px;
+	height: 30px;
+	background-color: red;
+	position: absolute;
+	top: 50%;
+	transform: translate(0, -50%);
+	cursor: pointer;
 }
