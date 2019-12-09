@@ -9,8 +9,16 @@
 <body>
 	<header>
 		<div class="simulate">
-			<button id="toGoBtn">Start</button>
+			<button>Start</button>
 		</div>
+		<div class="gravity_flag">
+      <label>
+        <div class="box" onclick="toggleGravity(this)">
+          <div class="circle"></div>
+        </div>
+        <input type="checkbox" id="gravity_flag" name="hello">
+        </label>
+    </div>
 	</header>
 	<canvas>Ваш браузер не поддерживает данное приложение</canvas>
 	<script src="js/canvas.js"></script>

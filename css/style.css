@@ -16,6 +16,7 @@ header{
 	top: 0;
 	left: 0;
 	z-index: 1;
+<<<<<<< HEAD
 	display: flex
 }
 #toGoBtn{
@@ -24,15 +25,82 @@ header{
 	margin-top: 8px;
 	width: 80px;
 	height: 58px;
+=======
+	display: flex;
+	justify-content: center;
+}
+.simulate{
+	display: flex;
+	justify-content: center;
+	box-sizing: border-box;
+	padding: 10px;
+	margin: 0 10px;
+}
+.simulate button{
+	padding: 0 20px;
+	color: white;
+>>>>>>> 6563d44407fd22f62b7caeb1876faf1b7bb79c1f
 	background-color: #cb34fe;
 	border-radius: 10%;
 	border: none;
 	font-size: 1.275em;
 	transition: 0.2s;
+	cursor: pointer;
 }
 
-#toGoBtn:hover {
+.simulate button:hover{
 	background: #421470;
 	color: #B6822D;
 	box-shadow: 0 0 100px #421470;
+}
+
+.gravity_flag {
+	display: block;
+	position: absolute;
+	width: 100px;
+	height: 50px;
+	left: 64%;
+	top: 10px;
+}
+
+.box {
+  width: 70px;
+  height: 30px;
+  position: absolute;
+  background-color: gray;
+  top: 1px;
+  border-radius: 30px;
+  transition: .3s;
+}
+
+.box.active {
+  width: 70px;
+  height: 30px;
+  position: absolute;
+  background-color: aqua;
+  top: 1px;
+  border-radius: 30px;
+  transition: .3s;
+}
+.circle {
+  margin: 3px;
+  background-color: #fff;
+  display: block;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  transition: .3s;
+}
+
+#gravity_flag {display: none;}
+
+.box.active > .circle{
+  margin: 3px;
+  background-color: #fff;
+  display: block;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  transition: .3s;
+  margin-left: 40px;
 }

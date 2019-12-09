@@ -3,11 +3,13 @@ class UI{
 		// init canvas and array of objects
 		this.canvas = canvas;
 		this.objects = objects;
+		this.gravyTrig = false;
 		// Functions of moving or changing zoom (add event listeners)
 		this.MoveDesktop();
 		this.MoveMobile();
 		this.ZoomDesktop();
 		this.UpdateCanv();
+		// this.ChangeGravy();
 	}
 	MoveDesktop(){
 		// Moving by arrows (transition)
@@ -72,4 +74,15 @@ class UI{
 			this.canvas.DrawAll(this.objects);
 		}
 	}
+	// ChangeGravy(){
+	// 	const trig 		= document.querySelector(".trig-gravy");
+	// 	const visual 	= document.querySelector(".change-gravy .visual");
+	// 	trig.addEventListener("click", () => {
+	// 		// To Do styles for trigger
+	// 		if(trig.checked) visual.style.backgroundColor = "lime";
+	// 		else visual.style.backgroundColor = "red";
+	//
+	// 		Obj.gravTrig = trig.checked;
+	// 		console.log(Obj.gravTrig);
+	// 	});
 }

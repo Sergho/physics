@@ -30,15 +30,26 @@ class Physic{
 			}
 		};
 	}
+	// One iteration
 	Iteration(){
+		// Clearing canvas
 		this.canvas.Clear();
+		// Doing action eith all of objects
 		this.objects.forEach((obj) => {
+			// Setting a new position
 			obj.NewPos(obj.speedX / this.fps, obj.speedY / this.fps, true);
+			// Setting a enew speed
+			obj.NewSpeed(obj.accelX / this.fps, obj.accelY / this.fps, true);
+			// Drawing all
 			this.canvas.DrawObj(obj);
 		})
 	}
 	Return(){
+		// Returning to start podition
 		this.objects[1].NewPos(this.objects[1].StartPosX, this.objects[1].StartPosY, false);
+		// Returning to start speed
+		
+		// Drawing all
 		this.canvas.DrawAll(this.objects);
 	}
 }
