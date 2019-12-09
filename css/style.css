@@ -43,25 +43,64 @@ header{
 	box-shadow: 0 0 100px #421470;
 }
 
-.change-gravy{
-	display: flex;
-	justify-content: center;
-	position: relative;
-	margin: 0 10px;
+.gravity_flag {
+  display: block;
+  top: 5px;
+  position: absolute;
+  width: 100px;
+  height: 30px;
+  left: 40%;
+  cursor: pointer;
 }
-.change-gravy input{
-	display: none;
-	position: absolute;
-	top: 50%;
-	transform: translate(0, -50%);
+
+.gravity_flag label{
+  cursor: pointer;
+  display: inline-block;
+  width: 100px;
+  height: 30px;
+  background-color: none;
 }
-.change-gravy .visual{
-	display: block;
-	width: 50px;
-	height: 30px;
-	background-color: red;
-	position: absolute;
-	top: 50%;
-	transform: translate(0, -50%);
-	cursor: pointer;
+
+#gravity_flag{
+  display: none;
+}
+.box {
+  width: 70px;
+  height: 30px;
+  position: absolute;
+  background-color: gray;
+  top: 1px;
+  border-radius: 30px;
+  transition: .3s;
+}
+
+.box.active {
+  width: 70px;
+  height: 30px;
+  position: absolute;
+  background-color: aqua;
+  top: 1px;
+  border-radius: 30px;
+  transition: .3s;
+}
+.circle {
+  margin: 3px;
+  background-color: #fff;
+  display: block;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  transition: .3s;
+}
+
+
+.box.active > .circle{
+  margin: 3px;
+  background-color: #fff;
+  display: block;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  transition: .3s;
+  margin-left: 40px;
 }
