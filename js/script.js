@@ -8,11 +8,12 @@ function Main(){
 	// Drawing all
 	canv.DrawAll(objects);
 
-	objects[1].NewAcceleration(1, 2);
+	objects[1].NewSpeed(10, 10, false, true);
 
-	// User interface
-	const ui = new UI(canv, objects);
+	// Physic lib
 	const physic = new Physic(canv, objects);
+	// User interface
+	const ui = new UI(canv, objects, physic);
 
 }
 
