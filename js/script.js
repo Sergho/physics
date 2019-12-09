@@ -1,4 +1,4 @@
-// Setup function 
+// Setup function
 function Main(){
 	// Canvas
 	const canv 	= new Canvas(30);
@@ -15,6 +15,10 @@ function Main(){
 	// User interface
 	const ui = new UI(canv, objects, physic);
 
+}
+
+function toggle(elem){
+  elem.classList.toggle("active");
 }
 
 // Setting Up )
