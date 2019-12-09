@@ -1,6 +1,7 @@
 class UI{
-	constructor(canvas, objects){
-		// init canvas and array of objects
+	constructor(canvas, objects, physic){
+		// init canvas and array of objects and physics core
+		this.physic = physic
 		this.canvas = canvas;
 		this.objects = objects;
 		this.gravyTrig = false;
@@ -9,7 +10,7 @@ class UI{
 		this.MoveMobile();
 		this.ZoomDesktop();
 		this.UpdateCanv();
-		// this.ChangeGravy();
+		this.ChangeGravy();
 	}
 	MoveDesktop(){
 		// Moving by arrows (transition)
@@ -68,21 +69,30 @@ class UI{
 		}
 	}
 	UpdateCanv(){
+		// Updating canvas size
 		window.onresize = () => {
+			// Width
 			this.canvas.canvas.width = window.innerWidth;
+			// And height
 			this.canvas.canvas.height = window.innerHeight;
+			// Drawwing all to see updates
 			this.canvas.DrawAll(this.objects);
 		}
 	}
-	// ChangeGravy(){
-	// 	const trig 		= document.querySelector(".trig-gravy");
-	// 	const visual 	= document.querySelector(".change-gravy .visual");
-	// 	trig.addEventListener("click", () => {
-	// 		// To Do styles for trigger
-	// 		if(trig.checked) visual.style.backgroundColor = "lime";
-	// 		else visual.style.backgroundColor = "red";
-	//
-	// 		Obj.gravTrig = trig.checked;
-	// 		console.log(Obj.gravTrig);
-	// 	});
+	ChangeGravy(){
+		// trigger to gravitation
+		const trig 		= document.querySelector(".trig-gravy");
+		// visual part of trigger
+		const visual 	= document.querySelector(".change-gravy .visual");
+		// catching click on it
+		trig.addEventListener("click", () => {
+			// To Do styles for trigger
+			if(trig.checked) visual.style.backgroundColor = "lime";
+			else visual.style.backgroundColor = "red";
+
+			// Inverting trig of gravitation
+			this.physic.gravTrig = trig.checked;
+			this.physic.ChangeGravitation();
+		});
+	}
 }

@@ -16,16 +16,6 @@ header{
 	top: 0;
 	left: 0;
 	z-index: 1;
-<<<<<<< HEAD
-	display: flex
-}
-#toGoBtn{
-	position: fixed;
-	margin-left: 30%;
-	margin-top: 8px;
-	width: 80px;
-	height: 58px;
-=======
 	display: flex;
 	justify-content: center;
 }
@@ -39,7 +29,6 @@ header{
 .simulate button{
 	padding: 0 20px;
 	color: white;
->>>>>>> 6563d44407fd22f62b7caeb1876faf1b7bb79c1f
 	background-color: #cb34fe;
 	border-radius: 10%;
 	border: none;
@@ -54,53 +43,25 @@ header{
 	box-shadow: 0 0 100px #421470;
 }
 
-.gravity_flag {
-	display: block;
+.change-gravy{
+	display: flex;
+	justify-content: center;
+	position: relative;
+	margin: 0 10px;
+}
+.change-gravy input{
+	display: none;
 	position: absolute;
-	width: 100px;
-	height: 50px;
-	left: 64%;
-	top: 10px;
+	top: 50%;
+	transform: translate(0, -50%);
 }
-
-.box {
-  width: 70px;
-  height: 30px;
-  position: absolute;
-  background-color: gray;
-  top: 1px;
-  border-radius: 30px;
-  transition: .3s;
-}
-
-.box.active {
-  width: 70px;
-  height: 30px;
-  position: absolute;
-  background-color: aqua;
-  top: 1px;
-  border-radius: 30px;
-  transition: .3s;
-}
-.circle {
-  margin: 3px;
-  background-color: #fff;
-  display: block;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  transition: .3s;
-}
-
-#gravity_flag {display: none;}
-
-.box.active > .circle{
-  margin: 3px;
-  background-color: #fff;
-  display: block;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  transition: .3s;
-  margin-left: 40px;
+.change-gravy .visual{
+	display: block;
+	width: 50px;
+	height: 30px;
+	background-color: red;
+	position: absolute;
+	top: 50%;
+	transform: translate(0, -50%);
+	cursor: pointer;
 }

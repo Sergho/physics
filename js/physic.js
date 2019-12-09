@@ -1,5 +1,7 @@
 class Physic{
 	constructor(canvas, objects){
+		// Flag of gravitation
+		this.gravTrig = false;
 		// init canvas and array of objects
 		this.canvas 	= canvas;
 		this.objects 	= objects;
@@ -26,7 +28,7 @@ class Physic{
 				simulate.innerHTML = 'Start';
 				// clearing interval if flag was disabled
 				clearInterval(this.timer);
-				this.Return()
+				this.Return();
 			}
 		};
 	}
@@ -38,18 +40,31 @@ class Physic{
 		this.objects.forEach((obj) => {
 			// Setting a new position
 			obj.NewPos(obj.speedX / this.fps, obj.speedY / this.fps, true);
-			// Setting a enew speed
+			// Setting a new speed
 			obj.NewSpeed(obj.accelX / this.fps, obj.accelY / this.fps, true);
 			// Drawing all
 			this.canvas.DrawObj(obj);
 		})
 	}
 	Return(){
-		// Returning to start podition
+		// Returning to start position
 		this.objects[1].NewPos(this.objects[1].StartPosX, this.objects[1].StartPosY, false);
 		// Returning to start speed
-		
+		this.objects[1].NewSpeed(this.objects[1].StartSpeedX, this.objects[1].StartSpeedY, false);
 		// Drawing all
 		this.canvas.DrawAll(this.objects);
+	}
+	ChangeGravitation(){	// Changing gravitation by checking value from gravTrigger
+		if(this.gravTrig){	// if trigger is true adding g for all of objects
+			this.objects.forEach((obj) => {
+				obj.NewAcceleration(0, -10, true);
+			});	
+			// removing acceleration from start of coords
+			this.objects[0].NewAcceleration(0, 0);
+		} else {	// if no trigger removing g from all
+			this.objects.forEach((obj) => {
+				obj.NewAcceleration(0, 0);
+			});	
+		}
 	}
 }
