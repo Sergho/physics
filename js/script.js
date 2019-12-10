@@ -17,9 +17,5 @@ function Main(){
 
 }
 
-function toggle(elem){
-  elem.classList.toggle("active");
-}
-
 // Setting Up )
 Main();
