@@ -39,7 +39,7 @@ class Canvas{
 	DrawAll(objects){
 		this.Clear();
 		this.DrawNet(this.zoom);
-		DrawObjS(objects);
+		this.DrawObjS(objects);
 	}
 	DrawObjS(objects){
 		objects.forEach((obj) => {
