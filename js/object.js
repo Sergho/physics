@@ -2,8 +2,8 @@ class Obj{
 	// Coordinates of start of coordinates
 	static StartX;
 	static StartY;
-	// Flag if object is start object (will returned to false after each object construct)
-	static start = true;
+	// Flag if object is first object (will returned to false after each object construct)
+	static first = true;
 	constructor(posX, posY, color){
 		// Start postion of objects to return after simulating
 		this.StartPosX = posX;
@@ -13,9 +13,9 @@ class Obj{
 		this.StartSpeedY = 0;
 		// Setting a position and color and flag of object
 		this.posX 	= posX;
-		this.posY 	= Obj.start ? posY : -posY;
+		this.posY 	= Obj.first ? posY : -posY;
 		this.color 	= color;
-		this.start  = Obj.start;
+		this.first  = Obj.first;
 		// Speed x and y
 		this.speedX = 0;
 		this.speedY = 0;
@@ -23,22 +23,26 @@ class Obj{
 		this.accelX = 0;
 		this.accelY = 0;
 		// Setting static coord of start point
-		if(this.start){
+		if(this.first){
 			Obj.StartX = posX;
 			Obj.StartY = posY;
-			Obj.start  = false;
+			Obj.first  = false;
 		}
 	}
-	NewPos(posX, posY, delta){	// New position for object
+	NewPos(posX, posY, delta, start){	// New position for object
 		// Checking delta, if true - incrementing position
 		if(!delta){
 			this.posX = posX;
-			this.posY = this.start ? posY : -posY;
+			this.posY = this.first ? posY : -posY;
 		} else {		// else setting a new position
 			this.posX += posX;
-			this.posY += this.start ? posY : -posY;
+			this.posY += this.first ? posY : -posY;
 		}
-		if(this.start){		// if it is the start point - setting new start of coordinates
+		if(start){				// Setting start speed if start flag is true
+			this.StartPosX = posX;
+			this.StartPosY = posY;
+		}
+		if(this.first){		// if it is the start point - setting new start of coordinates
 			Obj.StartX = this.posX;
 			Obj.StartY = this.posY;
 		}
@@ -63,11 +67,6 @@ class Obj{
 		} else {
 			this.accelX += accelX;
 			this.accelY += accelY;
-		}
-	}
-	ChangeGravitation(){
-		if(Obj.gravTrig){
-
 		}
 	}
 }

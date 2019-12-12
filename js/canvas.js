@@ -33,20 +33,16 @@ class Canvas{
 	DrawObj(obj){
 		// Drawing object
 		this.ctx.fillStyle = obj.color;
-		if(obj.start) this.ctx.fillRect(obj.posX * this.zoom, obj.posY * this.zoom, this.zoom, this.zoom);
+		if(obj.first) this.ctx.fillRect(obj.posX * this.zoom, obj.posY * this.zoom, this.zoom, this.zoom);
 		else this.ctx.fillRect((Obj.StartX + obj.posX) * this.zoom, (Obj.StartY + obj.posY) * this.zoom, this.zoom, this.zoom)
 	}
-	DrawAll(objects){
+	DrawAll(objects, net){
 		this.Clear();
-		this.DrawNet(this.zoom);
-		this.DrawObjS(objects);
-	}
-	DrawObjS(objects){
+		if(!net) this.DrawNet(this.zoom);
 		objects.forEach((obj) => {
 			this.DrawObj(obj, this.zoom);
 		})
 	}
-
 	Clear(){
 		// Clear screen
 		this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);

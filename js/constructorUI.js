@@ -86,10 +86,8 @@ class UI{
 		const visible = document.querySelector(".change_gravy .visible");
 		// catching click on it
 		trig.addEventListener("click", () => {
-			// To Do styles for trigger
-			
+			// Switch class to visible part of trigger
 			visible.classList.toggle("active");
-
 			// Inverting trig of gravitation
 			this.physic.gravTrig = trig.checked;
 			this.physic.ChangeGravitation();
