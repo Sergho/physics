@@ -81,14 +81,14 @@ class UI{
 	}
 	ChangeGravy(){
 		// trigger to gravitation
-		const trig 		= document.querySelector(".trig-gravy");
-		// visual part of trigger
-		const visual 	= document.querySelector(".change-gravy .visual");
+		const trig 		= document.querySelector(".change_gravy .gravy_trig");
+		// visible part of trigger
+		const visible = document.querySelector(".change_gravy .visible");
 		// catching click on it
 		trig.addEventListener("click", () => {
 			// To Do styles for trigger
-			if(trig.checked) visual.style.backgroundColor = "lime";
-			else visual.style.backgroundColor = "red";
+			
+			visible.classList.toggle("active");
 
 			// Inverting trig of gravitation
 			this.physic.gravTrig = trig.checked;

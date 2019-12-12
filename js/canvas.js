@@ -39,10 +39,14 @@ class Canvas{
 	DrawAll(objects){
 		this.Clear();
 		this.DrawNet(this.zoom);
+		DrawObjS(objects);
+	}
+	DrawObjS(objects){
 		objects.forEach((obj) => {
 			this.DrawObj(obj, this.zoom);
 		})
 	}
+
 	Clear(){
 		// Clear screen
 		this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
