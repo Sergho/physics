@@ -49,8 +49,8 @@ class Physic{
 	Return(){
 		// Returning to start position and speed
 		this.objects.forEach((object) => {
-			this.objects[1].NewPos(this.object.StartPosX, this.object.StartPosY, false);
-			this.objects[1].NewSpeed(this.object.StartSpeedX, this.object.StartSpeedY, false);
+			object.NewPos(object.StartPosX, object.StartPosY, false);
+			object.NewSpeed(object.StartSpeedX, object.StartSpeedY, false);
 		});
 		// Drawing all
 		this.canvas.DrawAll(this.objects);
