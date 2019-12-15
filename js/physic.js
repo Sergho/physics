@@ -47,10 +47,11 @@ class Physic{
 		})
 	}
 	Return(){
-		// Returning to start position
-		this.objects[1].NewPos(this.objects[1].StartPosX, this.objects[1].StartPosY, false);
-		// Returning to start speed
-		this.objects[1].NewSpeed(this.objects[1].StartSpeedX, this.objects[1].StartSpeedY, false);
+		// Returning to start position and speed
+		this.objects.forEach((object) => {
+			this.objects[1].NewPos(this.object.StartPosX, this.object.StartPosY, false);
+			this.objects[1].NewSpeed(this.object.StartSpeedX, this.object.StartSpeedY, false);
+		});
 		// Drawing all
 		this.canvas.DrawAll(this.objects);
 	}

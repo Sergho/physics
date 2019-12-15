@@ -4,7 +4,6 @@ class UI{
 		this.physic = physic
 		this.canvas = canvas;
 		this.objects = objects;
-		this.gravyTrig = false;
 		// Functions of moving or changing zoom (add event listeners)
 		this.MoveDesktop();
 		this.MoveMobile();
