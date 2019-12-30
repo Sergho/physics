@@ -24,7 +24,7 @@ class UI{
 
 			// New position and drawing all
 			this.objects[0].NewPos(dx, dy, true);
-			this.canvas.DrawAll(this.objects);
+			this.canvas.DrawAll(this.objects, this.physic.simulate ? 1 : 0);
 		}
 	}
 	MoveMobile(){
@@ -43,7 +43,7 @@ class UI{
 			let dy = -Math.round((startY - e.touches[0].screenY) / this.canvas.zoom * 2);
 			// Move and Draw
 			this.objects[0].NewPos(dx, dy, true);
-			this.canvas.DrawAll(this.objects);
+			this.canvas.DrawAll(this.objects, this.physic.simulate ? 1 : 0);
 			// Update Start coords
 			startX = e.touches[0].screenX;
 			startY = e.touches[0].screenY;
@@ -63,7 +63,7 @@ class UI{
 				// Start to center
 				this.objects[0].NewPos(Math.floor(window.innerWidth / 2 / this.canvas.zoom) - 1, Math.floor(window.innerHeight / 2 / this.canvas.zoom));
 				// Draw All
-				this.canvas.DrawAll(this.objects);
+				this.canvas.DrawAll(this.objects, this.physic.simulate ? 1 : 0);
 			}
 		}
 	}
@@ -75,7 +75,7 @@ class UI{
 			// And height
 			this.canvas.canvas.height = window.innerHeight;
 			// Drawwing all to see updates
-			this.canvas.DrawAll(this.objects);
+			this.canvas.DrawAll(this.objects, this.physic.simulate ? 1 : 0);
 		}
 	}
 	ChangeGravy(){

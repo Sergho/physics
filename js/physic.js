@@ -17,6 +17,7 @@ class Physic{
 		simulate.onclick = () => {
 			// changing the state of simulate flag
 			this.simulate = !this.simulate;
+				simulate.classList.toggle("active")
 			if(this.simulate){
 				simulate.innerHTML = 'Stop';
 				// start interval if flag works
@@ -39,19 +40,19 @@ class Physic{
 		// Doing action eith all of objects
 		this.objects.forEach((obj) => {
 			// Setting a new position
-			obj.NewPos(obj.speedX / this.fps, obj.speedY / this.fps, true);
+			if(!obj.fixed) obj.NewPos(obj.speedX / this.fps, obj.speedY / this.fps, true);
 			// Setting a new speed
-			obj.NewSpeed(obj.accelX / this.fps, obj.accelY / this.fps, true);
+			if(!obj.fixed) obj.NewSpeed(obj.accelX / this.fps, obj.accelY / this.fps, true);
 			// Drawing all
 			this.canvas.DrawObj(obj);
 		})
 	}
 	Return(){
 		// Returning to start position and speed
-		this.objects.forEach((object) => {
-			object.NewPos(object.StartPosX, object.StartPosY, false);
-			object.NewSpeed(object.StartSpeedX, object.StartSpeedY, false);
-		});
+		for(let i = 1; i < this.objects.length; i++){
+			this.objects[i].NewPos(this.objects[i].StartPosX, this.objects[i].StartPosY, false);
+			this.objects[i].NewSpeed(this.objects[i].StartSpeedX, this.objects[i].StartSpeedY, false);
+		}
 		// Drawing all
 		this.canvas.DrawAll(this.objects);
 	}

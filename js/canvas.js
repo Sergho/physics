@@ -33,8 +33,28 @@ class Canvas{
 	DrawObj(obj){
 		// Drawing object
 		this.ctx.fillStyle = obj.color;
-		if(obj.first) this.ctx.fillRect(obj.posX * this.zoom, obj.posY * this.zoom, this.zoom, this.zoom);
-		else this.ctx.fillRect((Obj.StartX + obj.posX) * this.zoom, (Obj.StartY + obj.posY) * this.zoom, this.zoom, this.zoom)
+		if(obj.first){
+			if(obj.form == "square") this.ctx.fillRect(obj.posX * this.zoom, obj.posY * this.zoom, this.zoom, this.zoom);
+			if(obj.form == "circle"){
+				this.ctx.beginPath();
+				this.ctx.arc((obj.posX + 0.5) * this.zoom, (obj.posY + 0.5) * this.zoom, this.zoom / 2, 0, Math.PI * 2);
+				this.ctx.fill();
+			}
+		}
+		else {
+			if(obj.form == "square") this.ctx.fillRect((Obj.StartX + obj.posX) * this.zoom, (Obj.StartY + obj.posY) * this.zoom, this.zoom, this.zoom);
+			if(obj.form == "circle"){
+				this.ctx.beginPath();
+				this.ctx.arc((Obj.StartX + obj.posX + 0.5) * this.zoom, (Obj.StartY + obj.posY + 0.5) * this.zoom, this.zoom / 2, 0, Math.PI * 2);
+				this.ctx.fill();
+			}
+			if(obj.form.substring(0, 4) == "rect"){
+				let str = obj.form.substr(4);
+				let width = str.split(":")[0];
+				let height = str.split(":")[1];
+				this.ctx.fillRect((Obj.StartX + obj.posX) * this.zoom, (Obj.StartY + obj.posY) * this.zoom, this.zoom * width, this.zoom * height);
+			}
+		}
 	}
 	DrawAll(objects, net){
 		this.Clear();

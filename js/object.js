@@ -4,7 +4,7 @@ class Obj{
 	static StartY;
 	// Flag if object is first object (will returned to false after each object construct)
 	static first = true;
-	constructor(posX, posY, color){
+	constructor(posX, posY, color, form, fixed){
 		// Start postion of objects to return after simulating
 		this.StartPosX = posX;
 		this.StartPosY = posY;
@@ -16,6 +16,10 @@ class Obj{
 		this.posY 	= Obj.first ? posY : -posY;
 		this.color 	= color;
 		this.first  = Obj.first;
+		// Static or dinamic object
+		this.fixed = fixed;
+		// Setting a form of object
+		this.form 	= form;
 		// Speed x and y
 		this.speedX = 0;
 		this.speedY = 0;
