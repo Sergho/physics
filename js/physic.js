@@ -45,7 +45,40 @@ class Physic{
 			if(!obj.fixed) obj.NewSpeed(obj.accelX / this.fps, obj.accelY / this.fps, true);
 			// Drawing all
 			this.canvas.DrawObj(obj);
-		})
+		});
+		// Collisions
+
+		this.objects.forEach((obj1) => {
+			this.objects.forEach((obj2) => {
+				if(obj1.form == "circle"){
+					// ball and rect
+					if(obj2.form.substring(0, 4) == "rect"){
+						const width = +obj2.form.substring(4).split(":")[0];
+						const height = +obj2.form.substring(4).split(":")[1];
+						// let over is bool flag wnich true when ball is over or under rect
+						let over = obj1.posX >= obj2.posX && obj1.posX <= obj2.posX + width;
+						// I let rects to have walls which have thickness equal 1 meter, and we check if ball is in wall(top wall)
+						let wall_top = obj1.posY + 1 >= obj2.posY && obj1.posY <= obj2.posY;
+						// I let rects to have walls which have thickness equal 1 meter, and we check if ball is in wall(bottom wall)
+						let wall_bottom = obj1.posY - 1 <= obj2.posY + height - 1 && obj1.posY >= obj2.posY + height - 1;
+						// Horizontal rect
+						if(over && wall_top){
+							//Setting new position in edge of wall
+							obj1.posY = obj2.posY - 1;
+							// Change speed
+							obj1.speedY = -obj1.speedY * 0.7;
+						}
+						if(over && wall_bottom){
+
+							obj1.posY = obj2.posY + 1;
+
+							obj1.speedY = -obj1.speedY * 0.7;
+						}
+					}
+				}
+			});
+		});
+
 	}
 	Return(){
 		// Returning to start position and speed
