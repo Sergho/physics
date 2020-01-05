@@ -6,7 +6,7 @@ class Physic{
 		this.canvas 	= canvas;
 		this.objects 	= objects;
 		this.simulate = false;
-		this.fps 			= 60;
+		this.fps 			= 120;
 		// Checking button for click and then simulate
 		this.Simulate();
 	}
@@ -70,9 +70,26 @@ class Physic{
 						}
 						if(over && wall_bottom){
 
-							obj1.posY = obj2.posY + 1;
+							obj1.posY = obj2.posY + height;
 
 							obj1.speedY = -obj1.speedY * 0.7;
+						}
+						// let over is bool flag wnich true when ball is left or right from rect
+						let behind = obj1.posY >= obj2.posY && obj1.posY <= obj2.posY + height;
+						// I let rects to have walls which have thickness equal 1 meter, and we check if ball is in wall(left wall)
+						let wall_left = obj1.posX + 1 >= obj2.posX&& obj1.posX <= obj2.posX;
+						// I let rects to have walls which have thickness equal 1 meter, and we check if ball is in wall(left wall)
+						let wall_right = obj1.posX - 1 <= obj2.posX + width - 1 && obj1.posX >= obj2.posX + width - 1;
+						// Vertical rect
+						if(behind && wall_left){
+							obj1.posX = obj2.posX - 1;
+							// Change speed
+							obj1.speedX = -obj1.speedX;
+						}
+						if(behind && wall_right){
+							obj1.posX = obj2.posX + width;
+							// Change speed
+							obj1.speedX = -obj1.speedX * 0.7;
 						}
 					}
 				}
