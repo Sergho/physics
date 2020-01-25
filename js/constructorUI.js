@@ -10,6 +10,8 @@ class UI{
 		this.ZoomDesktop();
 		this.UpdateCanv();
 		this.ChangeGravy();
+		// Aside panel
+		this.AsidePanel();
 	}
 	MoveDesktop(){
 		// Moving by arrows (transition)
@@ -90,6 +92,39 @@ class UI{
 			// Inverting trig of gravitation
 			this.physic.gravTrig = trig.checked;
 			this.physic.ChangeGravitation();
+		});
+	}
+	// Aside panel open-close
+	AsidePanel(){
+		// Getting button, which opens and closes aside panel
+		const btn = document.querySelector("aside .closed");
+		// Aside panel
+		const panel = document.querySelector("aside");
+		// Aside panel content
+		const content = panel.querySelector(".content");
+		// Adding event listener for open and close
+		btn.addEventListener("click", () => {
+			if(btn.classList.contains("closed")){
+				// Open
+				// Btn change
+				btn.classList.remove("closed");
+				btn.classList.add("opened");
+				// Aside panel show
+				panel.style.transform = "translate(0, 0)";
+				// Show content
+				content.style.display = "block";
+				setTimeout(() => {content.style.opacity = "1";}, 50);
+			} else {
+				// Close
+				// Btn change
+				btn.classList.remove("opened");
+				btn.classList.add("closed");
+				// Hide content
+				content.style.opacity = "0";
+				setTimeout(() => {content.style.display = "none"}, 550);
+				// Aside panel hide
+				panel.style.transform = "translate(80%, 0)";
+			}
 		});
 	}
 }

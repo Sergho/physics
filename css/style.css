@@ -2,6 +2,9 @@
 	padding: 0;
 	margin: 0;
 }
+body{
+	overflow: hidden;
+}
 canvas{
 	display: block;
 	position: absolute;
@@ -86,4 +89,87 @@ header{
 
 .change_gravy .gravy_trig{
   display: none;
+}
+
+/* Aside panel */
+
+aside{
+	position: absolute;
+	top: 0;
+	right: 0;
+	z-index: 3;
+	background-color: white;
+	width: 30%;
+	height: 100vh;
+	transform: translate(80%, 0);
+	transition: .5s ease;
+}
+aside .opened, aside .closed{
+	width: 3.5vw;
+	height: 3.5vw;
+	position: absolute;
+	top: 1vw;
+	left: 10%;
+	transform: translate(-50%, 0);
+	cursor: pointer;
+}
+aside .opened:hover span, aside .closed:hover span{
+	background-color: #777;
+}
+aside .opened span, aside .closed span{
+	display: block;
+	width: 100%;
+	height: 20%;
+	background-color: #333;
+	border-radius: 20%;
+	position: absolute;
+	transition: .3s ease;
+}
+aside .closed span:nth-child(1){
+	top: 0;
+}
+aside .closed span:nth-child(2){
+	top: 30%;
+}
+aside .closed span:nth-child(3){
+	top: 60%;
+}
+aside .opened span:nth-child(1){
+	top: 30%;
+	transform: rotate(135deg);
+}
+aside .opened span:nth-child(2){
+	top: 30%;
+	opacity: 0;
+}
+aside .opened span:nth-child(3){
+	top: 30%;
+	transform: rotate(-135deg);
+}
+aside .opened span{
+	border-radius: 0;
+}
+aside .content{
+	display: none;
+	opacity: 0;
+	transition: .5s ease;
+	padding: 5%;
+	margin-top: 4.5vw;
+}
+aside .content .pages-nav{
+	display: flex;
+	font-size: 28px;
+	font-family: "Helvetica";
+	font-weight: 700;
+	justify-content: space-between;
+	padding: 0 10%;
+}
+aside .content .pages-nav li{
+	list-style: none;
+	cursor: pointer;
+	color: #333;
+	transition: .3s ease;
+}
+aside .content .pages-nav li:hover{
+	color: #777;
 }
