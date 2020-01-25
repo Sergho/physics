@@ -66,13 +66,13 @@ class Physic{
 							//Setting new position in edge of wall
 							obj1.posY = obj2.posY - 1;
 							// Change speed
-							obj1.speedY = -obj1.speedY * 0.7;
+							obj1.speedY = -obj1.speedY * 0.6;
 						}
 						if(over && wall_bottom){
 
 							obj1.posY = obj2.posY + height;
 
-							obj1.speedY = -obj1.speedY * 0.7;
+							obj1.speedY = -obj1.speedY * 0.6;
 						}
 						// let over is bool flag wnich true when ball is left or right from rect
 						let behind = obj1.posY >= obj2.posY && obj1.posY <= obj2.posY + height;
@@ -84,12 +84,12 @@ class Physic{
 						if(behind && wall_left){
 							obj1.posX = obj2.posX - 1;
 							// Change speed
-							obj1.speedX = -obj1.speedX;
+							obj1.speedX = -obj1.speedX * 0.6;
 						}
 						if(behind && wall_right){
 							obj1.posX = obj2.posX + width;
 							// Change speed
-							obj1.speedX = -obj1.speedX * 0.7;
+							obj1.speedX = -obj1.speedX * 0.6;
 						}
 					}
 				}
@@ -109,7 +109,7 @@ class Physic{
 	ChangeGravitation(){	// Changing gravitation by checking value from gravTrigger
 		if(this.gravTrig){	// if trigger is true adding g for all of objects
 			this.objects.forEach((obj) => {
-				obj.NewAcceleration(0, -10, true);
+				obj.NewAcceleration(0, -9.81, true);
 			});	
 			// removing acceleration from start of coords
 			this.objects[0].NewAcceleration(0, 0);

@@ -8,7 +8,7 @@ function Main(){
 	// Drawing all
 	canv.DrawAll(objects);
 
-	objects[1].NewSpeed(10, 20, false, true);
+	objects[1].NewSpeed(100, 200, false, true);
 
 	// Physic lib
 	const physic = new Physic(canv, objects);
