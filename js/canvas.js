@@ -40,6 +40,12 @@ class Canvas{
 				this.ctx.arc((obj.posX + 0.5) * this.zoom, (obj.posY + 0.5) * this.zoom, this.zoom / 2, 0, Math.PI * 2);
 				this.ctx.fill();
 			}
+			if(obj.form.substring(0, 4) == "rect"){
+				let str = obj.form.substr(4);
+				let width = str.split(":")[0];
+				let height = str.split(":")[1];
+				this.ctx.fillRect(obj.posX * this.zoom, obj.posY * this.zoom, this.zoom * width, this.zoom * height);
+			}
 		}
 		else {
 			if(obj.form == "square") this.ctx.fillRect((Obj.StartX + obj.posX) * this.zoom, (Obj.StartY + obj.posY) * this.zoom, this.zoom, this.zoom);

@@ -1,9 +1,10 @@
 class UI{
-	constructor(canvas, objects, physic){
+	constructor(physic){
 		// init canvas and array of objects and physics core
 		this.physic = physic
-		this.canvas = canvas;
-		this.objects = objects;
+		this.canvas = physic.canvas;
+		this.objects = physic.objects;
+		this.control = "mouse";
 		// Functions of moving or changing zoom (add event listeners)
 		this.MoveDesktop();
 		this.MoveMobile();
@@ -12,6 +13,9 @@ class UI{
 		this.ChangeGravy();
 		// Aside panel
 		this.AsidePanel();
+		this.AsidePanelPages();
+		// Hover objects
+		this.HoverObject();
 	}
 	MoveDesktop(){
 		// Moving by arrows (transition)
@@ -123,7 +127,101 @@ class UI{
 				content.style.opacity = "0";
 				setTimeout(() => {content.style.display = "none"}, 550);
 				// Aside panel hide
-				panel.style.transform = "translate(80%, 0)";
+				panel.style.transform = "translate(75%, 0)";
+			}
+		});
+	}
+	// Aside panel pages change
+	AsidePanelPages(){
+		// All positions in navbar
+		const navs = document.querySelectorAll(".pages-nav li");
+		// All pages
+		const pages = document.querySelectorAll(".pages li");
+		// For each position add onclick function
+		navs.forEach((nav) => {
+			nav.addEventListener("click", () => {
+				const index = Array.from(navs).indexOf(nav);
+				// Hide all active positions in navbar
+				navs.forEach((nav_item) => {
+					nav_item.classList.remove("active");
+				});
+				// Hide all active slides
+				pages.forEach((page_item) => {
+					page_item.classList.remove("active");
+				});
+				// Show active position in navbar and active page
+				nav.classList.add("active");
+				pages[index].classList.add("active");
+			});
+		});
+	}
+	SelectControl(control){
+		// Select mouse or touchpad
+		this.control = control;
+	}
+	HoverObject(){
+		let control = this.control;	// Mouse or touchpad
+		const objects = Array.from(document.querySelectorAll(".pages .preview span"));		// All objects in sidebar
+
+		// Add action on mouse hover
+		objects.forEach((object) => {
+				// For desktop
+				if(control == "mouse"){
+					let startTouch = false;
+				// When mouse is on active pos
+				object.addEventListener("mousedown", () => {
+					startTouch = true;
+					// Creating a (shadow) of the object
+					if(objects.indexOf(object) == 0){ 
+						this.objects.push(new Obj(1, 1, "rgba(255, 0, 0, 0.3)", "circle"));
+						this.objects[this.objects.length - 1].first = true;
+						this.canvas.DrawAll(this.objects);
+					}
+					if(objects.indexOf(object) == 1){
+						this.objects.push(new Obj(4, 4, "rgba(0, 255, 0, 0.3)", "rect4:4"));
+						this.objects[this.objects.length - 1].first = true;
+						this.canvas.DrawAll(this.objects);
+					}
+
+				});
+				// When mouse is on passive pos
+				window.addEventListener("mouseup", () => {					
+					// Removing a (shadow) of the object
+					if(startTouch){
+						if(objects.indexOf(object) == 0){ 
+							this.objects.pop();
+							this.canvas.DrawAll(this.objects);
+						}
+						if(objects.indexOf(object) == 1){
+							this.objects.pop();
+							this.canvas.DrawAll(this.objects);
+						}
+					}
+					startTouch = false;
+
+				});
+				// Checking for moving mouse over the document
+				this.canvas.canvas.addEventListener("mousemove", (e) => {
+					if(startTouch){
+						// Updating coordinates of shadow
+						this.objects[this.objects.length - 1].posX = e.clientX / this.canvas.zoom;
+						this.objects[this.objects.length - 1].posY = e.clientY / this.canvas.zoom;
+						this.canvas.DrawAll(this.objects);
+					}
+				});
+			} else {
+				// For mobile
+
+				/* IMPORTANT to do device check (mobile or desktop) */
+
+				object.addEventListener("touchstart", function(){
+					startTouch = true;
+					console.log(startTouch);
+				});
+				document.addEventListener("touchend", function(){
+					startTouch = false;
+					console.log("mobile", startTouch);
+				});
 			}
 		});
 	}

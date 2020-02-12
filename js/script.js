@@ -13,7 +13,7 @@ function Main(){
 	// Physic lib
 	const physic = new Physic(canv, objects);
 	// User interface
-	const ui = new UI(canv, objects, physic);
+	const ui = new UI(physic);
 
 }
 
