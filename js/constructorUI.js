@@ -171,23 +171,25 @@ class UI{
 				// When mouse is on active pos
 				object.addEventListener("mousedown", () => {
 					startTouch = true;
-					// Creating a (shadow) of the object
-					if(objects.indexOf(object) == 0){ 
-						this.objects.push(new Obj(1, 1, "rgba(255, 0, 0, 0.3)", "circle"));
-						this.objects[this.objects.length - 1].first = true;
-						this.canvas.DrawAll(this.objects);
-					}
-					if(objects.indexOf(object) == 1){
-						this.objects.push(new Obj(4, 4, "rgba(0, 255, 0, 0.3)", "rect4:4"));
-						this.objects[this.objects.length - 1].first = true;
-						this.canvas.DrawAll(this.objects);
+					if(!this.physic.simulate){
+						// Creating a (shadow) of the object
+						if(objects.indexOf(object) == 0){ 
+							this.objects.push(new Obj(1, 1, "rgba(255, 0, 0, 0.3)", "circle"));
+							this.objects[this.objects.length - 1].first = true;
+							this.canvas.DrawAll(this.objects);
+						}
+						if(objects.indexOf(object) == 1){
+							this.objects.push(new Obj(4, 4, "rgba(0, 255, 0, 0.3)", "rect4:4"));
+							this.objects[this.objects.length - 1].first = true;
+							this.canvas.DrawAll(this.objects);
+						}
 					}
 
 				});
 				// When mouse is on passive pos
 				window.addEventListener("mouseup", () => {					
 					// Removing a (shadow) of the object
-					if(startTouch){
+					if(startTouch && !this.physic.simulate){
 						if(objects.indexOf(object) == 0){ 
 							this.objects.pop();
 							this.canvas.DrawAll(this.objects);
@@ -202,7 +204,8 @@ class UI{
 				});
 				// Checking for moving mouse over the document
 				this.canvas.canvas.addEventListener("mousemove", (e) => {
-					if(startTouch){
+					if(startTouch && !this.physic.simulate){
+						console.log(this.physic.simulate);
 						// Updating coordinates of shadow
 						this.objects[this.objects.length - 1].posX = e.clientX / this.canvas.zoom;
 						this.objects[this.objects.length - 1].posY = e.clientY / this.canvas.zoom;
@@ -210,19 +213,20 @@ class UI{
 					}
 				});
 			} else {
-				// For mobile
+			// For mobile
 
-				/* IMPORTANT to do device check (mobile or desktop) */
+			/* IMPORTANT to do device check (mobile or desktop) */
 
-				object.addEventListener("touchstart", function(){
-					startTouch = true;
-					console.log(startTouch);
-				});
-				document.addEventListener("touchend", function(){
-					startTouch = false;
-					console.log("mobile", startTouch);
-				});
-			}
-		});
+			object.addEventListener("touchstart", function(){
+				startTouch = true;
+				console.log(startTouch);
+			});
+			document.addEventListener("touchend", function(){
+				startTouch = false;
+				console.log("mobile", startTouch);
+			});
+		}
+	});
 	}
+
 }
