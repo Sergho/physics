@@ -2,9 +2,13 @@ class Obj{
 	// Coordinates of start of coordinates
 	static StartX;
 	static StartY;
+	// Canvas
+	static canvas;
 	// Flag if object is first object (will returned to false after each object construct)
 	static first = true;
-	constructor(posX, posY, color, form, fixed){
+	constructor(posX, posY, color, form, fixed, canvas){
+		// Bind canvas
+		this.BindCanvas(canvas);
 		// Start postion of objects to return after simulating
 		this.StartPosX = posX;
 		this.StartPosY = posY;
@@ -26,12 +30,17 @@ class Obj{
 		// Acceleration x and y
 		this.accelX = 0;
 		this.accelY = 0;
+		// Size of object;
+		this.size = Obj.canvas.zoom;
 		// Setting static coord of start point
 		if(this.first){
 			Obj.StartX = posX;
 			Obj.StartY = posY;
 			Obj.first  = false;
 		}
+	}
+	BindCanvas(canvas){
+		if(canvas) Obj.canvas = canvas;
 	}
 	NewPos(posX, posY, delta, start){	// New position for object
 		// Checking delta, if true - incrementing position

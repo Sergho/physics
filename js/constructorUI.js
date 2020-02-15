@@ -162,6 +162,7 @@ class UI{
 	HoverObject(){
 		let control = this.control;	// Mouse or touchpad
 		const objects = Array.from(document.querySelectorAll(".pages .preview span"));		// All objects in sidebar
+		const aside = document.querySelector("aside");		// Aside panel
 
 		// Add action on mouse hover
 		objects.forEach((object) => {
@@ -179,7 +180,7 @@ class UI{
 							this.canvas.DrawAll(this.objects);
 						}
 						if(objects.indexOf(object) == 1){
-							this.objects.push(new Obj(4, 4, "rgba(0, 255, 0, 0.3)", "rect4:4"));
+							this.objects.push(new Obj(4, 4, "rgba(0, 255, 0, 0.3)", "rect4:4", true));
 							this.objects[this.objects.length - 1].first = true;
 							this.canvas.DrawAll(this.objects);
 						}
@@ -187,7 +188,7 @@ class UI{
 
 				});
 				// When mouse is on passive pos
-				window.addEventListener("mouseup", () => {					
+				aside.addEventListener("mouseup", () => {					
 					// Removing a (shadow) of the object
 					if(startTouch && !this.physic.simulate){
 						if(objects.indexOf(object) == 0){ 
@@ -202,10 +203,21 @@ class UI{
 					startTouch = false;
 
 				});
+				// Creating new solid object
+				this.canvas.canvas.addEventListener("mouseup", (e) => {
+					if(startTouch && !this.physic.simulate){
+						let x = Math.round(e.clientX / this.canvas.zoom - this.objects[0].posX);
+						let y = Math.round(e.clientY / this.canvas.zoom - this.objects[0].posY);
+						this.objects[this.objects.length - 1].color = "red";
+						this.objects[this.objects.length - 1].first = false;
+						this.objects[this.objects.length - 1].NewPos(x, -y, false, true);
+						this.canvas.DrawAll(this.objects);
+						startTouch = false;
+					}
+				});
 				// Checking for moving mouse over the document
 				this.canvas.canvas.addEventListener("mousemove", (e) => {
 					if(startTouch && !this.physic.simulate){
-						console.log(this.physic.simulate);
 						// Updating coordinates of shadow
 						this.objects[this.objects.length - 1].posX = e.clientX / this.canvas.zoom;
 						this.objects[this.objects.length - 1].posY = e.clientY / this.canvas.zoom;
