@@ -3,6 +3,9 @@ body > .ball.shadow{
 	border-radius: 50%;
 	position: absolute;
 }
+button{
+	outline: none;
+}
 
 @media screen and (min-width: 320px){
 	
@@ -12,6 +15,7 @@ body > .ball.shadow{
 	}
 	body{
 		overflow: hidden;
+		user-select: none;
 	}
 	canvas{
 		display: block;
@@ -111,7 +115,6 @@ body > .ball.shadow{
 		height: 100vh;
 		transform: translate(75%, 0);
 		transition: .5s ease;
-		user-select: none;
 	}
 	aside .opened, aside .closed{
 		width: 30px;
@@ -258,6 +261,37 @@ body > .ball.shadow{
 		left: 50%;
 		transform: translate(-50%, -50%);
 		cursor: pointer;
+	}
+
+	.settings{
+		position: absolute;
+		top: 500px;
+		left: 500px;
+		box-sizing: border-box;
+		background-color: white;
+		box-shadow: 5px 5px 15px #ddd;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		width: 150px;
+		transition: .3s ease;
+	}
+	.settings button{
+		width: 120px;
+		padding: 10px;
+		background-color: rgba(0, 0, 0, 0.0);
+		border: 2px solid #38858d;
+		color: #38858d;
+		border-radius: 10px;
+		font-size: 1em;
+		transition: .3s ease;
+		margin-top: 10px;
+		margin-bottom: 10px;
+		cursor: pointer;
+	}
+	.settings button:hover{
+		background-color: #38858d;
+		color: white;
 	}
 
 }

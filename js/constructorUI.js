@@ -5,6 +5,10 @@ class UI{
 		this.canvas = physic.canvas;
 		this.objects = physic.objects;
 		this.control = "mouse";
+		// Object in setting process
+		this.obj_clicked = undefined;
+		// Move mode trigger
+		this.move = false;
 		// Functions of moving or changing zoom (add event listeners)
 		this.MoveDesktop();
 		this.MoveMobile();
@@ -16,6 +20,10 @@ class UI{
 		this.AsidePanelPages();
 		// Hover objects
 		this.HoverObject();
+		// Settings of objects
+		this.ObjectSettings();
+		// Move of object
+		this.ObjectMove();
 	}
 	MoveDesktop(){
 		// Moving by arrows (transition)
@@ -239,6 +247,91 @@ class UI{
 			});
 		}
 	});
+	}
+	// Changing object settings
+	ObjectSettings(){
+		this.canvas.canvas.addEventListener("click", (e) => {
+			let obj_clicked = undefined;
+			this.objects.forEach((object) => {
+				if(!this.physic.simulate){
+					// Checking clicking on each object
+					if(!object.first){
+						const objX = object.posX + this.objects[0].posX;
+						const objY = object.posY + this.objects[0].posY;
+						const clickX = e.clientX / this.canvas.zoom;
+						const clickY = e.clientY / this.canvas.zoom;
+						if(clickX > objX && clickX < objX + 1 && clickY > objY && clickY < objY + 1) obj_clicked = object;
+					}
+				}
+			});
+			if(obj_clicked){
+				this.obj_clicked = obj_clicked;
+				// Draw modal menu
+				const modal = document.querySelector(".settings");
+
+				// Setting true position of modal menu
+				modal.style.left = e.clientX + this.canvas.zoom + "px";
+				modal.style.top = e.clientY + this.canvas.zoom + "px";
+				// Showing modal menu
+				modal.style.display = "flex";
+				setTimeout(() => {modal.style.opacity = "1";}, 50);
+			} else {
+				// Hide modal menu
+				const modal = document.querySelector(".settings");
+
+				modal.style.opacity = "0";
+				setTimeout(() => {modal.style.display = "none"}, 300);
+				// Delay is necessary to inject some time for some actions in end of correction like move sizing or color change
+				setTimeout(() => {this.obj_clicked = undefined;}, 50);
+			}
+		});
+	}
+	ObjectMove(){
+		const btn = document.querySelector(".move");
+		const modal = document.querySelector(".settings");
+		// Checking click on button "Переместить"
+		btn.addEventListener("click", () => {
+			let last_color;
+			if(!this.move){
+				this.move = true;
+				// Close modal with settings
+				modal.style.opacity = "0";
+				setTimeout(() => {modal.style.display = "none"}, 300);
+				// Change color of object
+				last_color = this.obj_clicked.color;
+				this.obj_clicked.color = "rgba(0, 0, 0, 0.3)";
+				this.canvas.DrawAll(this.objects);
+				this.canvas.canvas.addEventListener("mousemove", (e) => {
+					if(this.move){
+						if(this.obj_clicked.first){
+							this.obj_clicked.posX = e.clientX / this.canvas.zoom;
+							this.obj_clicked.posY = e.clientY / this.canvas.zoom;
+							this.canvas.DrawAll(this.objects);
+						} else {
+							this.obj_clicked.posX = (e.clientX - this.objects[0].posX * this.canvas.zoom) / this.canvas.zoom;
+							this.obj_clicked.posY = (e.clientY - this.objects[0].posY * this.canvas.zoom) / this.canvas.zoom;
+							this.canvas.DrawAll(this.objects);
+						}
+					}
+				});
+			}
+			this.canvas.canvas.addEventListener("click", (e) => {
+				if(this.move){
+					// Changing trigger
+					this.move = false;
+					// Correcting position
+					this.obj_clicked.posX = Math.floor(this.obj_clicked.posX);
+					this.obj_clicked.posY = Math.floor(this.obj_clicked.posY);
+					// Correcting start position
+					this.obj_clicked.StartPosX = this.obj_clicked.posX;
+					this.obj_clicked.StartPosY = -this.obj_clicked.posY;
+					// Installing start color
+					this.obj_clicked.color = last_color;
+					// Drawing all to see changes
+					this.canvas.DrawAll(this.objects);
+				}
+			});
+		});
 	}
 
 }

@@ -74,7 +74,7 @@ class Physic{
 								if((first > lines[3] + thickness && first < lines[2] - thickness) || (second > lines[3] + thickness && second < lines[2] - thickness)) {
 									if(i == 0) obj1.posX = lines[0] - 1;
 									if(i == 1) obj1.posX = lines[1];
-									obj1.speedX = -obj1.speedX * 0.7;
+									obj1.speedX = -obj1.speedX * 0.5;
 									this.canvas.DrawAll(this.objects, true);
 								}
 							}
