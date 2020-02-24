@@ -183,12 +183,12 @@ class UI{
 					if(!this.physic.simulate){
 						// Creating a (shadow) of the object
 						if(objects.indexOf(object) == 0){ 
-							this.objects.push(new Obj(1, 1, "rgba(255, 0, 0, 0.3)", "circle"));
+							this.objects.push(new Obj(1, 1, "rgba(255, 0, 0, 0.3)", "circle", "1:1"));
 							this.objects[this.objects.length - 1].first = true;
 							this.canvas.DrawAll(this.objects);
 						}
 						if(objects.indexOf(object) == 1){
-							this.objects.push(new Obj(4, 4, "rgba(0, 255, 0, 0.3)", "rect4:4", true));
+							this.objects.push(new Obj(4, 4, "rgba(0, 255, 0, 0.3)", "rect", "5:5", true));
 							this.objects[this.objects.length - 1].first = true;
 							this.canvas.DrawAll(this.objects);
 						}
@@ -260,7 +260,7 @@ class UI{
 						const objY = object.posY + this.objects[0].posY;
 						const clickX = e.clientX / this.canvas.zoom;
 						const clickY = e.clientY / this.canvas.zoom;
-						if(clickX > objX && clickX < objX + 1 && clickY > objY && clickY < objY + 1) obj_clicked = object;
+						if(clickX > objX && clickX < objX + object.sizeX && clickY > objY && clickY < objY + object.sizeY) obj_clicked = object;
 					}
 				}
 			});
