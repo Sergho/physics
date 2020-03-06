@@ -31,8 +31,8 @@ class Obj{
 		this.accelX = 0;
 		this.accelY = 0;
 		// Size of object;
-		this.sizeX = size.split(":")[0];
-		this.sizeY = size.split(":")[1];
+		this.sizeX = +size.split(":")[0];
+		this.sizeY = +size.split(":")[1];
 		// Setting static coord of start point
 		if(this.first){
 			Obj.StartX = posX;

@@ -9,6 +9,8 @@ class UI{
 		this.obj_clicked = undefined;
 		// Move mode trigger
 		this.move = false;
+		// Sizing mode trigger
+		this.sizing = false;
 		// Functions of moving or changing zoom (add event listeners)
 		this.MoveDesktop();
 		this.MoveMobile();
@@ -24,6 +26,8 @@ class UI{
 		this.ObjectSettings();
 		// Move of object
 		this.ObjectMove();
+		// Sizing of object
+		this.ObjectSizing();
 	}
 	MoveDesktop(){
 		// Moving by arrows (transition)
@@ -251,38 +255,48 @@ class UI{
 	// Changing object settings
 	ObjectSettings(){
 		this.canvas.canvas.addEventListener("click", (e) => {
-			let obj_clicked = undefined;
-			this.objects.forEach((object) => {
-				if(!this.physic.simulate){
-					// Checking clicking on each object
-					if(!object.first){
-						const objX = object.posX + this.objects[0].posX;
-						const objY = object.posY + this.objects[0].posY;
-						const clickX = e.clientX / this.canvas.zoom;
-						const clickY = e.clientY / this.canvas.zoom;
-						if(clickX > objX && clickX < objX + object.sizeX && clickY > objY && clickY < objY + object.sizeY) obj_clicked = object;
+			if(!this.move && !this.sizing){
+				let obj_clicked = undefined;
+				this.objects.forEach((object) => {
+					if(!this.physic.simulate){
+						// Checking clicking on each object
+						if(!object.first){
+							let objX = object.posX + this.objects[0].posX;
+							let objY = object.posY + this.objects[0].posY;
+							const clickX = e.clientX / this.canvas.zoom;
+							const clickY = e.clientY / this.canvas.zoom;
+							if(object.form == "circle"){
+								let radius = object.sizeX / 2;
+								objX += 0.5;
+								objY += 0.5;
+								if(Math.pow(objX - clickX, 2) + Math.pow(objY - clickY, 2) < Math.pow(radius, 2)) obj_clicked = object;
+							}
+							if(object.form == "rect"){
+								if(clickX > objX && clickX < objX + object.sizeX && clickY > objY && clickY < objY + object.sizeY) obj_clicked = object;
+							}
+						}
 					}
+				});
+				if(obj_clicked){
+					this.obj_clicked = obj_clicked;
+					// Draw modal menu
+					const modal = document.querySelector(".settings");
+
+					// Setting true position of modal menu
+					modal.style.left = e.clientX + this.canvas.zoom + "px";
+					modal.style.top = e.clientY + this.canvas.zoom + "px";
+					// Showing modal menu
+					modal.style.display = "flex";
+					setTimeout(() => {modal.style.opacity = "1";}, 50);
+				} else {
+					// Hide modal menu
+					const modal = document.querySelector(".settings");
+
+					modal.style.opacity = "0";
+					setTimeout(() => {modal.style.display = "none"}, 300);
+					// Delay is necessary to inject some time for some actions in end of correction like move sizing or color change
+					setTimeout(() => {this.obj_clicked = undefined;}, 50);
 				}
-			});
-			if(obj_clicked){
-				this.obj_clicked = obj_clicked;
-				// Draw modal menu
-				const modal = document.querySelector(".settings");
-
-				// Setting true position of modal menu
-				modal.style.left = e.clientX + this.canvas.zoom + "px";
-				modal.style.top = e.clientY + this.canvas.zoom + "px";
-				// Showing modal menu
-				modal.style.display = "flex";
-				setTimeout(() => {modal.style.opacity = "1";}, 50);
-			} else {
-				// Hide modal menu
-				const modal = document.querySelector(".settings");
-
-				modal.style.opacity = "0";
-				setTimeout(() => {modal.style.display = "none"}, 300);
-				// Delay is necessary to inject some time for some actions in end of correction like move sizing or color change
-				setTimeout(() => {this.obj_clicked = undefined;}, 50);
 			}
 		});
 	}
@@ -330,6 +344,74 @@ class UI{
 					// Drawing all to see changes
 					this.canvas.DrawAll(this.objects);
 				}
+			});
+		});
+	}
+	ObjectSizing(){
+		const btn = document.querySelector(".size");
+		const modal = document.querySelector(".settings");
+
+		btn.addEventListener("click", () => {
+			// close modal
+			let last_color = this.obj_clicked.color;
+			if(!this.sizing){
+				modal.style.opacity = "0";
+				setTimeout(() => {modal.style.display = "none"}, 300);
+
+				this.sizing = true;
+				this.obj_clicked.color = "rgba(0, 0, 0, 0.3)";
+				this.canvas.DrawAll(this.objects);
+				this.canvas.canvas.addEventListener("mousemove", (e) => {
+					if(this.sizing){
+						// Ball sizing
+						if(this.obj_clicked.form == "circle"){
+							let objX = this.objects[0].posX + this.obj_clicked.posX + 0.5;
+							this.obj_clicked.sizeX = Math.floor(Math.abs(objX - e.clientX / this.canvas.zoom));
+							if(this.obj_clicked.sizeX < 1) this.obj_clicked.sizeX = 1;
+							this.canvas.DrawAll(this.objects);
+						}
+						if(this.obj_clicked.form == "rect"){
+							let objX = this.obj_clicked.StartPosX;
+							let objY = this.obj_clicked.StartPosY;
+
+							let mouseX = e.clientX / this.canvas.zoom;
+							let mouseY = e.clientY / this.canvas.zoom;
+
+							if(mouseX - this.objects[0].posX - objX <= 0){
+								this.obj_clicked.posX = Math.floor(mouseX - this.objects[0].posX);
+								this.obj_clicked.sizeX = this.obj_clicked.StartPosX - this.obj_clicked.posX;
+								if(this.obj_clicked.sizeX < 1) this.obj_clicked.sizeX = 1;
+							}
+							if(mouseX - this.objects[0].posX - objX > 0){
+								this.obj_clicked.posX = this.obj_clicked.StartPosX;
+								this.obj_clicked.sizeX = Math.floor(mouseX - objX - this.objects[0].posX);
+								if(this.obj_clicked.sizeX < 1) this.obj_clicked.sizeX = 1;
+							}
+							if(mouseY - this.objects[0].posY + objY <= 0){
+								this.obj_clicked.posY = Math.floor(mouseY - this.objects[0].posY);
+								this.obj_clicked.sizeY = -this.obj_clicked.StartPosY - this.obj_clicked.posY;
+								if(this.obj_clicked.sizeY < 1) this.obj_clicked.sizeY = 1;
+							}
+							if(mouseY - this.objects[0].posY + objY > 0){
+								this.obj_clicked.posY = -this.obj_clicked.StartPosY;
+								this.obj_clicked.sizeY = Math.floor(mouseY + objY - this.objects[0].posY);
+								if(this.obj_clicked.sizeY < 1) this.obj_clicked.sizeY = 1;
+							}
+
+							this.canvas.DrawAll(this.objects);
+						}
+					}
+				});
+			}
+			this.canvas.canvas.addEventListener("click", () => {
+				this.sizing = false;
+
+				this.obj_clicked.color = last_color;
+
+				this.obj_clicked.StartPosX = this.obj_clicked.posX;
+				this.obj_clicked.StartPosY = -this.obj_clicked.posY;
+
+				this.canvas.DrawAll(this.objects);
 			});
 		});
 	}
