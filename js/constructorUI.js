@@ -11,6 +11,8 @@ class UI{
 		this.move = false;
 		// Sizing mode trigger
 		this.sizing = false;
+		// Setting speed and acceleration mode trigger
+		this.setSA = false;
 		// Functions of moving or changing zoom (add event listeners)
 		this.MoveDesktop();
 		this.MoveMobile();
@@ -28,6 +30,8 @@ class UI{
 		this.ObjectMove();
 		// Sizing of object
 		this.ObjectSizing();
+		// Setting speed and acceleration for object
+		this.ObjectSetSpeedAccel();
 	}
 	MoveDesktop(){
 		// Moving by arrows (transition)
@@ -413,6 +417,61 @@ class UI{
 
 				this.canvas.DrawAll(this.objects);
 			});
+		});
+	}
+	ObjectSetSpeedAccel(){
+		const btn = document.querySelector(".speed");
+		const close_modal = document.querySelector(".settings");
+		const modal = document.querySelector(".changeSA");
+
+		btn.addEventListener("click", (e) => {
+			if(!this.setSA){
+				this.setSA = true;
+				// close modal
+				close_modal.style.opacity = 0;
+				setTimeout(() => {close_modal.style.display = "none"}, 300);
+				// Open change menu
+				// Setting coordinates
+				modal.style.top = close_modal.style.top;
+				modal.style.left = close_modal.style.left;
+
+				// Setting current speed and acceleration values on input
+				let sx = modal.querySelector(".speedX");
+				let sy = modal.querySelector(".speedY");
+				let ax = modal.querySelector(".accelX");
+				let ay = modal.querySelector(".accelY");
+
+				sx.value = this.obj_clicked.speedX;
+				sy.value = this.obj_clicked.speedY;
+				ax.value = this.obj_clicked.accelX;
+				ay.value = this.obj_clicked.accelY;
+
+				// Showing modal
+				modal.style.display = "flex";
+				setTimeout(() => {modal.style.opacity = 1;}, 50);
+
+				// Changing speed and acceleration of object
+				sx.addEventListener("change", () => {
+					this.obj_clicked.StartSpeedX = this.obj_clicked.speedX = +sx.value;
+				});
+				sy.addEventListener("change", () => {
+					this.obj_clicked.StartSpeedY = this.obj_clicked.speedY = +sy.value;
+				});
+				ax.addEventListener("change", () => {
+					this.obj_clicked.accelX = +ax.value;
+				});
+				ay.addEventListener("change", () => {
+					this.obj_clicked.accelY = +ay.value;
+				});
+
+			}
+		});
+		this.canvas.canvas.addEventListener("click", () => {
+			if(this.setSA){
+				this.setSA = false;
+				modal.style.opacity = 0;
+				setTimeout(() => {modal.style.display = "none"}, 350);
+			}
 		});
 	}
 

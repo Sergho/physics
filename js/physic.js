@@ -21,6 +21,7 @@ class Physic{
 			if(this.simulate){
 				simulate.innerHTML = 'Stop';
 				// start interval if flag works
+				console.log(this.objects);
 				this.timer = setInterval(() => {
 					// Making iteration with frequency of 60fps
 					this.Iteration();

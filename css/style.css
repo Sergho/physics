@@ -294,6 +294,42 @@ button{
 		color: white;
 	}
 
+	.changeSA{
+		background-color: white;
+		position: absolute;
+		top: 500px;
+		left: 500px;
+		box-shadow: 5px 5px 15px #ddd;
+		padding: 20px;
+		width: 230px;
+		height: 280px;
+		box-sizing: border-box;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		transition: .3s ease;
+	}
+	.changeSA h4{
+		width: 100%;
+		margin-top: 15px;
+	}
+	.changeSA p{
+		width: 20%;
+		line-height: 30px;
+		margin-top: 10px;
+	}
+	.changeSA input{
+		width: 80%;
+		height: 30px;
+		border: none;
+		background-color: #ddd;
+		padding: 5px;
+		box-sizing: border-box;
+		color: black;
+		outline: none;
+		margin-top: 10px;
+	}
+
 }
 
 @media screen and (min-width: 768px){
