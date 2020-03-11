@@ -62,47 +62,6 @@ button{
 		color: black;
 	}
 
-	.change_gravy{
-		margin: 0 10px;
-		display: flex;
-	}
-
-	.change_gravy .visible {
-		width: 70px;
-		height: 30px;
-		position: absolute;
-		top: 50%;
-		transform: translate(0, -50%);
-		background-color: gray;
-		border-radius: 30px;
-		transition: .3s;
-		cursor: pointer;
-	}
-
-	.change_gravy .visible .circle {
-		position: absolute;
-		top: 3px;
-		left: 3px;
-		background-color: #fff;
-		display: block;
-		width: 24px;
-		height: 24px;
-		border-radius: 50%;
-		transition: .3s;
-	}
-
-	.change_gravy .visible.active {
-		background-color: aqua;
-	}
-
-	.change_gravy .visible.active .circle{
-		transform: translate(40px, 0);
-	}
-
-	.change_gravy .gravy_trig{
-		display: none;
-	}
-
 	/* Aside panel */
 
 	aside{
@@ -261,6 +220,72 @@ button{
 		left: 50%;
 		transform: translate(-50%, -50%);
 		cursor: pointer;
+	}
+
+	aside .content .pages .settings-page{
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+	}
+	aside .content .pages .settings-page h1{
+		width: 100%;
+		text-align: center;
+		font-size: 32px;
+	}
+	aside .content .pages .settings-page ul{
+		width: 80%;
+		margin-top: 30px;
+	}
+	aside .content .pages .settings-page ul li{
+		list-style: none;
+		display: flex;
+		justify-content: center;
+	}
+	aside .content .pages .settings-page ul li .change_gravy{
+		width: 100%;
+	}
+	aside .content .pages .settings-page ul li .change_gravy label{
+		display: flex;
+		justify-content: center;
+	}
+	aside .content .pages .settings-page ul li .change_gravy p{
+		width: 50%;
+		font-size: 22px;
+		line-height: 30px;
+	}
+
+	aside .content .pages .settings-page ul li .change_gravy .visible {
+		width: 70px;
+		height: 30px;
+		position: relative;
+		background-color: gray;
+		border-radius: 30px;
+		transition: .3s;
+		cursor: pointer;
+	}
+
+	aside .content .pages .settings-page ul li .change_gravy .visible .circle {
+		position: absolute;
+		top: 3px;
+		left: 3px;
+		background-color: #fff;
+		display: block;
+		width: 24px;
+		height: 24px;
+		border-radius: 50%;
+		transition: .3s;
+	}
+
+	aside .content .pages .settings-page ul li .change_gravy .visible.active {
+		background-color: aqua;
+	}
+
+	.change_gravy .visible.active .circle{
+		transform: translate(40px, 0);
+	}
+
+	aside .content .pages .settings-page ul li .change_gravy .gravy_trig{
+		display: none;
 	}
 
 	.settings{

@@ -235,8 +235,8 @@ class UI{
 				this.canvas.canvas.addEventListener("mousemove", (e) => {
 					if(startTouch && !this.physic.simulate){
 						// Updating coordinates of shadow
-						this.objects[this.objects.length - 1].posX = e.clientX / this.canvas.zoom;
-						this.objects[this.objects.length - 1].posY = e.clientY / this.canvas.zoom;
+						this.objects[this.objects.length - 1].posX = Math.floor(e.clientX / this.canvas.zoom);
+						this.objects[this.objects.length - 1].posY = Math.floor(e.clientY / this.canvas.zoom);
 						this.canvas.DrawAll(this.objects);
 					}
 				});
@@ -322,12 +322,12 @@ class UI{
 				this.canvas.canvas.addEventListener("mousemove", (e) => {
 					if(this.move){
 						if(this.obj_clicked.first){
-							this.obj_clicked.posX = e.clientX / this.canvas.zoom;
-							this.obj_clicked.posY = e.clientY / this.canvas.zoom;
+							this.obj_clicked.posX = Math.floor(e.clientX / this.canvas.zoom);
+							this.obj_clicked.posY = Math.floor(e.clientY / this.canvas.zoom);
 							this.canvas.DrawAll(this.objects);
 						} else {
-							this.obj_clicked.posX = (e.clientX - this.objects[0].posX * this.canvas.zoom) / this.canvas.zoom;
-							this.obj_clicked.posY = (e.clientY - this.objects[0].posY * this.canvas.zoom) / this.canvas.zoom;
+							this.obj_clicked.posX = Math.floor((e.clientX - (this.objects[0].posX + this.obj_clicked.sizeX / 2) * this.canvas.zoom) / this.canvas.zoom);
+							this.obj_clicked.posY = Math.floor((e.clientY - (this.objects[0].posY + this.obj_clicked.sizeY / 2) * this.canvas.zoom) / this.canvas.zoom);
 							this.canvas.DrawAll(this.objects);
 						}
 					}
@@ -337,9 +337,6 @@ class UI{
 				if(this.move){
 					// Changing trigger
 					this.move = false;
-					// Correcting position
-					this.obj_clicked.posX = Math.floor(this.obj_clicked.posX);
-					this.obj_clicked.posY = Math.floor(this.obj_clicked.posY);
 					// Correcting start position
 					this.obj_clicked.StartPosX = this.obj_clicked.posX;
 					this.obj_clicked.StartPosY = -this.obj_clicked.posY;
