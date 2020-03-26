@@ -70,7 +70,7 @@ button{
 		right: 0;
 		z-index: 3;
 		background-color: white;
-		width: 200px;
+		width: 50%;
 		height: 100vh;
 		transform: translate(75%, 0);
 		transition: .5s ease;
@@ -157,7 +157,6 @@ button{
 		display: none;
 		opacity: 0;
 		list-style: none;
-		transition: .3s;
 	}
 	aside .content .pages .page.active{
 		display: flex;
@@ -212,7 +211,7 @@ button{
 	}
 	aside .content .pages .objects-page .object-card.surface .preview span{
 		display: block;
-		width: 130px;
+		width: 100px;
 		height: 30px;
 		background-color: lime;
 		position: absolute;
@@ -233,7 +232,7 @@ button{
 		font-size: 32px;
 	}
 	aside .content .pages .settings-page ul{
-		width: 80%;
+		width: 95%;
 		margin-top: 30px;
 	}
 	aside .content .pages .settings-page ul li{
@@ -241,50 +240,50 @@ button{
 		display: flex;
 		justify-content: center;
 	}
-	aside .content .pages .settings-page ul li .change_gravy{
+	aside .content .pages .settings-page ul li .trig{
 		width: 100%;
 	}
-	aside .content .pages .settings-page ul li .change_gravy label{
+	aside .content .pages .settings-page ul li .trig label{
 		display: flex;
 		justify-content: center;
 	}
-	aside .content .pages .settings-page ul li .change_gravy p{
+	aside .content .pages .settings-page ul li .trig p{
 		width: 50%;
-		font-size: 22px;
+		font-size: 14px;
 		line-height: 30px;
 	}
 
-	aside .content .pages .settings-page ul li .change_gravy .visible {
-		width: 70px;
-		height: 30px;
+	aside .content .pages .settings-page ul li .trig .visible {
+		width: 50px;
+		height: 25px;
 		position: relative;
 		background-color: gray;
-		border-radius: 30px;
+		border-radius: 25px;
 		transition: .3s;
 		cursor: pointer;
 	}
 
-	aside .content .pages .settings-page ul li .change_gravy .visible .circle {
+	aside .content .pages .settings-page ul li .trig .visible .circle {
 		position: absolute;
 		top: 3px;
 		left: 3px;
 		background-color: #fff;
 		display: block;
-		width: 24px;
-		height: 24px;
+		width: 19px;
+		height: 19px;
 		border-radius: 50%;
 		transition: .3s;
 	}
 
-	aside .content .pages .settings-page ul li .change_gravy .visible.active {
+	aside .content .pages .settings-page ul li .trig .visible.active {
 		background-color: aqua;
 	}
 
-	.change_gravy .visible.active .circle{
-		transform: translate(40px, 0);
+	aside .content .pages .settings-page ul li .trig .visible.active .circle{
+		transform: translate(25px, 0);
 	}
 
-	aside .content .pages .settings-page ul li .change_gravy .gravy_trig{
+	aside .content .pages .settings-page ul li .trig input{
 		display: none;
 	}
 
@@ -405,6 +404,31 @@ button{
 	aside .content .pages .objects-page .object-card.ball .preview span{
 		width: 70px;
 		height: 70px;
+	}
+
+	aside .content .pages .settings-page ul{
+		width: 80%;
+	}
+	aside .content .pages .settings-page ul li{
+		margin-bottom: 15px;
+	}
+	aside .content .pages .settings-page ul li .trig p{
+		font-size: 22px;
+	}
+
+	aside .content .pages .settings-page ul li .trig .visible {
+		width: 70px;
+		height: 30px;
+		border-radius: 30px;
+	}
+
+	aside .content .pages .settings-page ul li .trig .visible .circle {
+		width: 24px;
+		height: 24px;
+	}
+
+	aside .content .pages .settings-page ul li .trig .visible.active .circle{
+		transform: translate(40px, 0);
 	}
 
 }

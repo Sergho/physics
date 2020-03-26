@@ -7,6 +7,10 @@ class Physic{
 		this.objects 	= objects;
 		this.simulate = false;
 		this.fps 			= 120;
+		// Friction force
+		this.FFX			= 0;
+		this.FFY			= 0;
+		this.FFTrig		= false;
 		// Checking button for click and then simulate
 		this.Simulate();
 	}
@@ -73,7 +77,14 @@ class Physic{
 								if((first > lines[3] + thickness && first < lines[2] - thickness) || (second > lines[3] + thickness && second < lines[2] - thickness)) {
 									if(i == 0) obj1.posX = lines[0] - 0.5 - obj1.sizeX / 2;
 									if(i == 1) obj1.posX = lines[1] + +obj1.sizeX / 2 - 0.5;
+									// change speed
 									obj1.speedX = -obj1.speedX * 0.5;
+									// friction force
+									if(this.FFTrig){
+										if(obj1.speedY > 0) obj1.speedY -= 0.1;
+										if(obj1.speedY < 0) obj1.speedY += 0.1;
+										if(Math.abs(obj1.speedY - 0.1) < 0) obj1.speedY = 0;
+									}
 									this.canvas.DrawAll(this.objects, true);
 								}
 							}
@@ -91,6 +102,12 @@ class Physic{
 									if(i == 2) obj1.posY = -lines[2] - 0.5 - obj1.sizeX / 2;
 									if(i == 3) obj1.posY = -lines[3] + +obj1.sizeX / 2 - 0.5;
 									obj1.speedY = -obj1.speedY * 0.7;
+									// friction force
+									if(this.FFTrig){
+										if(obj1.speedX > 0) obj1.speedX -= 0.1;
+										if(obj1.speedX < 0) obj1.speedX += 0.1;
+										if(Math.abs(obj1.speedX - 0.1) < 0) obj1.speedX = 0;
+									}
 									this.canvas.DrawAll(this.objects, true);
 								}
 							}

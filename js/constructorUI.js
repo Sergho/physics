@@ -19,6 +19,7 @@ class UI{
 		this.ZoomDesktop();
 		this.UpdateCanv();
 		this.ChangeGravy();
+		this.ChangeFrictionForce();
 		// Aside panel
 		this.AsidePanel();
 		this.AsidePanelPages();
@@ -32,6 +33,8 @@ class UI{
 		this.ObjectSizing();
 		// Setting speed and acceleration for object
 		this.ObjectSetSpeedAccel();
+		// Delete object
+		this.ObjectDelete();
 	}
 	MoveDesktop(){
 		// Moving by arrows (transition)
@@ -102,9 +105,9 @@ class UI{
 	}
 	ChangeGravy(){
 		// trigger to gravitation
-		const trig 		= document.querySelector(".change_gravy .gravy_trig");
+		const trig 		= document.querySelector(".trig input.gravy_trig");
 		// visible part of trigger
-		const visible = document.querySelector(".change_gravy .visible");
+		const visible = document.querySelector(".trig .gravy_trig.visible");
 		// catching click on it
 		trig.addEventListener("click", () => {
 			// Switch class to visible part of trigger
@@ -112,6 +115,17 @@ class UI{
 			// Inverting trig of gravitation
 			this.physic.gravTrig = trig.checked;
 			this.physic.ChangeGravitation();
+		});
+	}
+	ChangeFrictionForce(){
+		const trig 		= document.querySelector(".trig .friction_force_trig");
+		const visible = document.querySelector(".trig .visible.friction_force");
+
+		trig.addEventListener("click", () => {
+			// Switch class to visible part of trigger
+			visible.classList.toggle("active");
+			// Inverting trig of gravitation
+			this.physic.FFTrig = trig.checked;
 		});
 	}
 	// Aside panel open-close
@@ -469,6 +483,25 @@ class UI{
 				modal.style.opacity = 0;
 				setTimeout(() => {modal.style.display = "none"}, 350);
 			}
+		});
+	}
+	ObjectDelete(){
+		const btn 			= document.querySelector(".delete");
+		const close_modal 	= document.querySelector(".settings");
+		btn.addEventListener("click", () => {
+			// close modal window with settings
+			close_modal.style.opacity = "0";
+			setTimeout(() => {close_modal.style.display = "none"}, 350);
+			// deleting object
+			// selecting object
+			this.objects.forEach((object) => {
+				if(object === this.obj_clicked){
+					const index = this.objects.indexOf(object);
+					// deleting current object
+					this.objects.splice(index, 1);
+					this.canvas.DrawAll(this.objects);
+				}
+			});
 		});
 	}
 
